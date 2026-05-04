@@ -535,6 +535,7 @@ p {
 .mail-link {
   display: inline-flex;
   margin-top: 18px;
+  cursor: text;
 }
 
 .social-links a:hover,
@@ -614,6 +615,10 @@ p {
   resize: vertical;
 }
 
+.contact-form textarea::placeholder {
+  color: #6f6e69;
+}
+
 .contact-form input:focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
@@ -625,6 +630,78 @@ p {
   width: fit-content;
   border: 0;
   cursor: pointer;
+}
+
+.contact-form .button:disabled {
+  cursor: wait;
+}
+
+.privacy-consent {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.privacy-copy {
+  display: grid;
+  gap: 12px;
+}
+
+.privacy-copy strong {
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.privacy-copy dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.privacy-copy dl > div {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(245, 245, 240, 0.08);
+}
+
+.privacy-copy dt,
+.privacy-copy dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.privacy-copy dt {
+  color: #d7d5cc;
+  font-weight: 750;
+}
+
+.privacy-copy p {
+  color: var(--soft);
+  font-size: 0.78rem;
+}
+
+.consent-check {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 10px !important;
+  color: #d7d5cc !important;
+  font-size: 0.88rem !important;
+  line-height: 1.5;
+}
+
+.consent-check input {
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0;
+  accent-color: var(--accent);
+  flex: 0 0 auto;
 }
 
 .form-status {
@@ -754,6 +831,11 @@ p {
   .hero-actions .button,
   .contact-form .button {
     width: 100%;
+  }
+
+  .privacy-copy dl > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
   }
 
   .principles article {

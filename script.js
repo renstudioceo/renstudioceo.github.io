@@ -45,11 +45,46 @@ contactForm?.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const formData = new FormData(contactForm);
-  const name = String(formData.get("name") || "").trim();
+  const email = String(formData.get("email") || "").trim();
   const type = String(formData.get("type") || "").trim();
+  const message = String(formData.get("message") || "").trim();
+  const privacyConsent = contactForm.querySelector('input[name="privacyConsent"]');
   const submitButton = contactForm.querySelector('button[type="submit"]');
+  const endpoint = contactForm.dataset.endpoint || FORM_ENDPOINT;
 
-  formData.set("_subject", `[REN STUDIO] ${type || "문의"} - ${name || "이름 없음"}`);
+  if (!email || !email.includes("@")) {
+    if (formStatus) {
+      formStatus.textContent = "이메일 주소를 정확히 입력해 주세요.";
+    }
+    contactForm.querySelector('input[name="email"]')?.focus();
+    return;
+  }
+
+  if (!type) {
+    if (formStatus) {
+      formStatus.textContent = "문의 유형을 선택해 주세요.";
+    }
+    contactForm.querySelector('select[name="type"]')?.focus();
+    return;
+  }
+
+  if (!message) {
+    if (formStatus) {
+      formStatus.textContent = "문의 내용을 입력해 주세요.";
+    }
+    contactForm.querySelector('textarea[name="message"]')?.focus();
+    return;
+  }
+
+  if (!privacyConsent?.checked) {
+    if (formStatus) {
+      formStatus.textContent = "개인정보 수집·이용에 동의해 주세요.";
+    }
+    privacyConsent?.focus();
+    return;
+  }
+
+  formData.set("_subject", `[REN STUDIO] ${type || "문의"} - ${email}`);
 
   if (formStatus) {
     formStatus.textContent = "문의 내용을 전송하고 있습니다.";
@@ -57,7 +92,7 @@ contactForm?.addEventListener("submit", (event) => {
 
   submitButton?.setAttribute("disabled", "true");
 
-  fetch(FORM_ENDPOINT, {
+  fetch(endpoint, {
     method: "POST",
     body: formData,
     headers: {

@@ -11,7 +11,8 @@
 
 ## 수정 포인트
 
-- 문의 수신 이메일은 `script.js`의 `CONTACT_EMAIL`과 `index.html`의 이메일 링크를 함께 변경합니다.
+- 문의 폼 엔드포인트는 `index.html`의 `data-endpoint`와 `script.js`의 `FORM_ENDPOINT`를 함께 변경합니다.
+- 문의 안내 이메일은 `index.html`의 `.mail-link` 텍스트와 오류 안내 문구를 함께 변경합니다.
 - Creators / Crew Partners 카드의 프로필, 장르, 소개 문구, SNS 링크는 `index.html` 안의 각 카드에서 수정합니다.
 - 포인트 컬러는 `styles.css`의 `:root` 안 `--accent` 값으로 관리합니다.
 
