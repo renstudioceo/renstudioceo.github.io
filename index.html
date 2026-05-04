@@ -220,7 +220,14 @@
             <a class="mail-link" href="mailto:ceo@renstudio.kr">ceo@renstudio.kr</a>
           </div>
 
-          <form class="contact-form" data-contact-form>
+          <form
+            class="contact-form"
+            action="https://formspree.io/f/mdabelok"
+            method="POST"
+            data-contact-form
+          >
+            <input type="hidden" name="_subject" value="REN STUDIO 홈페이지 문의" />
+
             <label>
               <span>이름</span>
               <input type="text" name="name" autocomplete="name" required />

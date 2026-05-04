@@ -31,6 +31,10 @@ body {
     Inter, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.6;
   letter-spacing: 0;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 body::before {
@@ -62,6 +66,18 @@ input,
 select,
 textarea {
   font: inherit;
+}
+
+input,
+select,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.mail-link {
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 .site-header {
@@ -227,7 +243,8 @@ h1,
 h2,
 h3,
 p {
-  overflow-wrap: anywhere;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 h1,
@@ -314,6 +331,12 @@ p {
 .button-secondary:hover,
 .button-secondary:focus-visible {
   border-color: var(--text);
+}
+
+.button:disabled {
+  cursor: wait;
+  opacity: 0.58;
+  transform: none;
 }
 
 .section-grid {

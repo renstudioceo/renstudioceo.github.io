@@ -1,4 +1,4 @@
-const CONTACT_EMAIL = "ceo@renstudio.kr";
+const FORM_ENDPOINT = "https://formspree.io/f/mdabelok";
 
 const header = document.querySelector("[data-header]");
 const nav = document.querySelector("[data-nav]");
@@ -46,24 +46,41 @@ contactForm?.addEventListener("submit", (event) => {
 
   const formData = new FormData(contactForm);
   const name = String(formData.get("name") || "").trim();
-  const email = String(formData.get("email") || "").trim();
   const type = String(formData.get("type") || "").trim();
-  const message = String(formData.get("message") || "").trim();
+  const submitButton = contactForm.querySelector('button[type="submit"]');
 
-  const subject = `[REN STUDIO] ${type || "문의"} - ${name}`;
-  const body = [
-    `이름: ${name}`,
-    `이메일: ${email}`,
-    `문의 유형: ${type}`,
-    "",
-    "내용:",
-    message,
-  ].join("\n");
-
-  const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  window.location.href = mailto;
+  formData.set("_subject", `[REN STUDIO] ${type || "문의"} - ${name || "이름 없음"}`);
 
   if (formStatus) {
-    formStatus.textContent = "메일 앱을 열고 있습니다. 전송 전 내용을 한 번 더 확인해 주세요.";
+    formStatus.textContent = "문의 내용을 전송하고 있습니다.";
   }
+
+  submitButton?.setAttribute("disabled", "true");
+
+  fetch(FORM_ENDPOINT, {
+    method: "POST",
+    body: formData,
+    headers: {
+      Accept: "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Form submission failed");
+      }
+
+      contactForm.reset();
+
+      if (formStatus) {
+        formStatus.textContent = "문의가 접수되었습니다. 확인 후 연락드리겠습니다.";
+      }
+    })
+    .catch(() => {
+      if (formStatus) {
+        formStatus.textContent = "전송 중 문제가 발생했습니다. ceo@renstudio.kr로 직접 문의해 주세요.";
+      }
+    })
+    .finally(() => {
+      submitButton?.removeAttribute("disabled");
+    });
 });
