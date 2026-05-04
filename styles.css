@@ -589,7 +589,7 @@ p {
   font-weight: 700;
 }
 
-.contact-form input,
+.contact-form input:not([type="checkbox"]),
 .contact-form select,
 .contact-form textarea {
   width: 100%;
@@ -603,7 +603,7 @@ p {
     box-shadow 160ms ease;
 }
 
-.contact-form input,
+.contact-form input:not([type="checkbox"]),
 .contact-form select {
   height: 48px;
   padding: 0 14px;
@@ -619,7 +619,7 @@ p {
   color: #6f6e69;
 }
 
-.contact-form input:focus,
+.contact-form input:not([type="checkbox"]):focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
   border-color: var(--accent);
@@ -638,8 +638,8 @@ p {
 
 .privacy-consent {
   display: grid;
-  gap: 14px;
-  padding: 18px;
+  gap: 16px;
+  padding: 18px 18px 16px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.025);
@@ -647,61 +647,118 @@ p {
 
 .privacy-copy {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .privacy-copy strong {
   color: var(--text);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
-.privacy-copy dl {
+.privacy-list {
   display: grid;
-  gap: 8px;
-  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(245, 245, 240, 0.08);
+  border-radius: 6px;
 }
 
-.privacy-copy dl > div {
+.privacy-row {
   display: grid;
-  grid-template-columns: 132px minmax(0, 1fr);
-  gap: 12px;
-  padding-bottom: 8px;
+  grid-template-columns: 122px minmax(0, 1fr);
+  gap: 10px;
+  padding: 9px 10px;
   border-bottom: 1px solid rgba(245, 245, 240, 0.08);
 }
 
-.privacy-copy dt,
-.privacy-copy dd {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.55;
+.privacy-row:last-child {
+  border-bottom: 0;
 }
 
-.privacy-copy dt {
+.privacy-row span {
   color: #d7d5cc;
-  font-weight: 750;
+  font-size: 0.76rem;
+  font-weight: 720;
+  line-height: 1.45;
+}
+
+.privacy-row p {
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.45;
 }
 
 .privacy-copy p {
   color: var(--soft);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
+  line-height: 1.55;
 }
 
 .consent-check {
-  display: flex !important;
-  align-items: flex-start;
-  gap: 10px !important;
+  position: relative;
+  display: block !important;
   color: #d7d5cc !important;
-  font-size: 0.88rem !important;
-  line-height: 1.5;
+  cursor: pointer;
+  font-size: 0.83rem !important;
+  font-weight: 700 !important;
+  line-height: 1.45;
 }
 
-.consent-check input {
-  width: 18px;
-  height: 18px;
-  margin: 2px 0 0;
-  accent-color: var(--accent);
-  flex: 0 0 auto;
+.consent-check input[type="checkbox"] {
+  position: absolute;
+  width: 1px !important;
+  height: 1px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.consent-check span {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 18px;
+  padding-left: 26px;
+}
+
+.consent-check span::before {
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: #050505;
+  content: "";
+}
+
+.consent-check span::after {
+  position: absolute;
+  left: 5px;
+  top: 4px;
+  width: 5px;
+  height: 8px;
+  border-right: 2px solid #050505;
+  border-bottom: 2px solid #050505;
+  content: "";
+  opacity: 0;
+  transform: rotate(45deg);
+}
+
+.consent-check input[type="checkbox"]:checked + span::before {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.consent-check input[type="checkbox"]:checked + span::after {
+  opacity: 1;
+}
+
+.consent-check input[type="checkbox"]:focus-visible + span::before {
+  box-shadow: 0 0 0 3px rgba(216, 210, 194, 0.16);
 }
 
 .form-status {
@@ -833,9 +890,9 @@ p {
     width: 100%;
   }
 
-  .privacy-copy dl > div {
+  .privacy-row {
     grid-template-columns: 1fr;
-    gap: 2px;
+    gap: 3px;
   }
 
   .principles article {
