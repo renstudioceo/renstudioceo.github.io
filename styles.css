@@ -504,7 +504,6 @@ p {
 .card-content {
   display: flex;
   flex-direction: column;
-  min-height: 208px;
 }
 
 .tag {
@@ -521,12 +520,16 @@ p {
   margin-bottom: 12px;
 }
 
+.card-content h3 {
+  margin-bottom: 0;
+}
+
 .social-links {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
-  margin-top: auto;
-  padding-top: 22px;
+  margin-top: 18px;
+  padding-top: 0;
 }
 
 .social-links a,
